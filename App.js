@@ -1,7 +1,13 @@
-import * as React from "react";
+import { useState } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { Button } from "@react-navigation/elements";
+import {
+  GestureHandlerRootView,
+  Pressable,
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import PagerView from "react-native-pager-view";
@@ -20,13 +26,50 @@ function Tab1() {
 
 function Tab2() {
   const navigation = useNavigation();
+  const [isPressed, setIsPressed] = useState(false);
+  const [whoPressed, setWhoPressed] = useState("");
+
+  console.log(JSON.stringify("isPressed"));
+  console.log(JSON.stringify(isPressed));
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Tab 2</Text>
-      <Button onPress={() => navigation.navigate("UserPages")}>
+      <Text>{whoPressed}</Text>
+      <Text>{String(isPressed)}</Text>
+      <Pressable
+        style={styles.button}
+        onPressIn={() => setIsPressed(true)}
+        onPress={() => {
+          setWhoPressed("Pressable");
+        }}
+        onPressOut={() => setIsPressed(false)}
+      >
+        <Text>Click me!</Text>
+      </Pressable>
+      <TouchableHighlight
+        style={styles.button}
+        onPressIn={() => setIsPressed(true)}
+        onPress={() => {
+          setWhoPressed("TouchableHighlight");
+        }}
+        onPressOut={() => setIsPressed(false)}
+      >
+        <Text>TouchableHighlight</Text>
+      </TouchableHighlight>
+      <TouchableOpacity
+        style={styles.button}
+        onPressIn={() => setIsPressed(true)}
+        onPress={() => {
+          setWhoPressed("TouchableOpacity");
+        }}
+        onPressOut={() => setIsPressed(false)}
+      >
+        <Text>TouchableHighlight</Text>
+      </TouchableOpacity>
+      {/* <Button onPress={() => navigation.navigate("UserPages")}>
         Go to Profile
-      </Button>
+      </Button> */}
     </View>
   );
 }
@@ -57,6 +100,11 @@ const styles = StyleSheet.create({
   pagerView: {
     flex: 1,
   },
+  button: {
+    padding: 20,
+    marginBottom: 10,
+    backgroundColor: "grey",
+  },
 });
 
 function UserPagesNavigator() {
@@ -70,11 +118,13 @@ function UserPagesNavigator() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <UserStack.Navigator>
-        <UserStack.Screen name="UserTabs" component={UserTabsNavigator} />
-        <UserStack.Screen name="UserPages" component={UserPagesNavigator} />
-      </UserStack.Navigator>
-    </NavigationContainer>
+    <GestureHandlerRootView>
+      <NavigationContainer>
+        <UserStack.Navigator>
+          <UserStack.Screen name="UserTabs" component={UserTabsNavigator} />
+          <UserStack.Screen name="UserPages" component={UserPagesNavigator} />
+        </UserStack.Navigator>
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 }
