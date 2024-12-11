@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Alert, StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { Button } from "@react-navigation/elements";
 import {
   GestureHandlerRootView,
   Pressable,
   TouchableHighlight,
-  TouchableOpacity,
 } from "react-native-gesture-handler";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
@@ -20,6 +19,22 @@ function Tab1() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Tab 1</Text>
+
+      <Pressable
+        style={styles.button}
+        onPress={() => {
+          console.log("Parent");
+        }}
+      >
+        <Pressable
+          style={styles.button}
+          onPress={() => {
+            console.log("Child");
+          }}
+        >
+          <Text>Click me!</Text>
+        </Pressable>
+      </Pressable>
     </View>
   );
 }
@@ -29,8 +44,8 @@ function Tab2() {
   const [isPressed, setIsPressed] = useState(false);
   const [whoPressed, setWhoPressed] = useState("");
 
-  console.log(JSON.stringify("isPressed"));
-  console.log(JSON.stringify(isPressed));
+  // console.log(JSON.stringify("isPressed"));
+  // console.log(JSON.stringify(isPressed));
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -39,11 +54,17 @@ function Tab2() {
       <Text>{String(isPressed)}</Text>
       <Pressable
         style={styles.button}
-        onPressIn={() => setIsPressed(true)}
+        onPressIn={() => {
+          console.log(JSON.stringify("onPressIn"));
+          setIsPressed(true);
+        }}
         onPress={() => {
           setWhoPressed("Pressable");
         }}
-        onPressOut={() => setIsPressed(false)}
+        onPressOut={() => {
+          console.log(JSON.stringify("onPressOut"));
+          setIsPressed(false);
+        }}
       >
         <Text>Click me!</Text>
       </Pressable>
@@ -65,7 +86,7 @@ function Tab2() {
         }}
         onPressOut={() => setIsPressed(false)}
       >
-        <Text>TouchableHighlight</Text>
+        <Text>TouchableOpacity</Text>
       </TouchableOpacity>
       {/* <Button onPress={() => navigation.navigate("UserPages")}>
         Go to Profile
