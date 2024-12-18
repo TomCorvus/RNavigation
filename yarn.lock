@@ -6427,6 +6427,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-pdf-renderer@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "react-native-pdf-renderer@npm:1.5.0"
+  peerDependencies:
+    react-native: ">=0.60"
+  checksum: 10c0/01baf002675630d8b0468d7cb332e04f0dc4eb320c8f6375f33ef4bdb5d145a9f2d3ba1dabe3456e943a0fea2293afe359aefa7e4794be49c0f94a69d9146b32
+  languageName: node
+  linkType: hard
+
 "react-native-safe-area-context@npm:^4.14.0":
   version: 4.14.0
   resolution: "react-native-safe-area-context@npm:4.14.0"
@@ -6803,6 +6812,7 @@ __metadata:
     react-native: "npm:0.76.3"
     react-native-gesture-handler: "npm:^2.21.2"
     react-native-pager-view: "npm:^6.6.0"
+    react-native-pdf-renderer: "npm:^1.5.0"
     react-native-safe-area-context: "npm:^4.14.0"
     react-native-screens: "npm:^4.3.0"
     typescript: "npm:^5.3.3"
